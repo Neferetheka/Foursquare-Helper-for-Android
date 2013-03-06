@@ -1,4 +1,4 @@
-package com.aerilys.leftforsquare.android.api.foursquare;
+package com.aerilys.api.foursquare;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,11 +12,15 @@ public class Venue
 	public String City = "";
 	public int Distance = 0;
 	public String Image;
+	public String Category = "None";
 
 	public Venue(String name, String id, JSONObject location, JSONArray categories) throws JSONException
 	{
 		Name = name;
 		Id = id;
+
+		if (Name == null)
+			Name = "";
 
 		if (location.has("address"))
 			Adress = location.getString("address");
@@ -27,7 +31,8 @@ public class Venue
 
 		if (categories.length() > 0)
 		{
-			Image = categories.getJSONObject(0).getJSONObject("icon").getString("prefix") + "64.png";
+			Category = categories.getJSONObject(0).getString("name");
+			Image = categories.getJSONObject(0).getJSONObject("icon").getString("prefix") + "88.png";
 		}
 		else
 			Image = "";
